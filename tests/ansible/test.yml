@@ -1,0 +1,5 @@
+---
+- hosts: sandbox--localdev
+  remote_user: root
+  roles:
+    - ansible-galaxy.helloworld
