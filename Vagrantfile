@@ -4,15 +4,14 @@
 # The most common configuration options are documented and commented below.
 # For a complete reference, please see the online documentation at
 # https://docs.vagrantup.com.
-VAGRANTFILE_VERSION = "2"
 Vagrant.require_version ">= 1.8.1"
 
 load './tests/vagranthelper/load_configuration.rb'
 load './tests/vagranthelper/require_plugins.rb'
 
-Vagrant.configure(VAGRANTFILE_VERSION) do |config|
+Vagrant.configure(2) do |config|
   # Check for required vagrant plugins
-  require_plugins config, %w(vagrant-hostmanager vagrant-vbguest vagrant-cachier vagrant-serverspec)
+  require_plugins config, %w(vagrant-hostmanager vagrant-vbguest vagrant-cachier)
 
   # Load basic configuration of this VM
   configuration = load_configuration('localdev', './tests/configuration.yml')
