@@ -1,38 +1,60 @@
-Role Name
+Ansible Galaxy Role for helloworld project
 =========
 
-A brief description of the role goes here.
+helloworld role demonstrates Ansible Galaxy project structure and uses VirtualBox, Vagrant and ServerSpec for development and testing.
+**Current status:** Released
 
-Requirements
-------------
+## How it works
 
-Any pre-requisites that may not be covered by Ansible itself or the role should be mentioned here. For instance, if the role uses the EC2 module, it may be a good idea to mention in this section that the boto package is required.
+This Ansible Role Repository can be handled with Ansible Galaxy.
+The role is not expecting any other role, that is installed upfront.
+It uses [Vagrant](#vagrant) and [ServerSpec](#serverspec) for testing.
 
-Role Variables
---------------
+### How to start
 
-A description of the settable variables for this role should go here, including any variables that are in defaults/main.yml, vars/main.yml, and any variables that can/should be set via parameters to the role. Any variables that are read from other roles and/or the global scope (ie. hostvars, group vars, etc.) should be mentioned here as well.
+Please make sure you have setup any [prerequisites](README_SETUP.md)!
 
-Dependencies
-------------
+### Vagrant
 
-A list of other roles hosted on Galaxy should go here, plus any details in regards to parameters that may need to be set for other roles, or variables that are used from other roles.
+If you have installed all [prerequisites](README_SETUP.md), then just type `vagrant status` to get an overview about available VMs.
 
-Example Playbook
-----------------
+To run/kill a VM `vagrant up [<name>]` and `vagrant destroy [<name>]` commands are your friends.
+
+`vagrant provision [<name>]` can be called for running Ansible role inside VM environment and apply ServerSpec tests afterwards. Provision will be started implicit by Vagrant, when it create a new VM by up-command.
+
+`vagrant provision [<name>] --provision-with test` will rerun [ServerSpec](#serverspec) tests without starting Ansible role again.\
+Feel free to add more provisioning scenarios at the bottom of Vagrantfile file.
+
+Additional scenarios added here, are:\
+`vagrant provision --provision-with uninstall` will remove provisioned installation by calling ansible-playbook with -e state=absent.
+
+For more details about vagrant commands visit: https://www.vagrantup.com/docs/cli/
+
+### ServerSpec
+
+This was developed on top of Ruby rspec framework to simplify acceptance testing at system configuration.
+We use ServerSpec, even development has stopped, because it runs inside Vagrant and you don't need to setup anything local or in your VM.
+
+For reference on tests visit: https://serverspec.org/resource_types.html
+
+## Dependencies
+
+None
+
+## Role Variables
+
+Variables that can be defined individually are:
+* `message:` Message that will be printed for demonstration
+
+## Example Playbook
+
+//TODO Provide example
 
 Including an example of how to use your role (for instance, with variables passed in as parameters) is always nice for users too:
-
-    - hosts: servers
-      roles:
-         - { role: username.rolename, x: 42 }
-
-License
--------
-
-BSD
-
-Author Information
-------------------
-
-An optional section for the role authors to include contact information, or a website (HTML is not allowed).
+```
+- hosts: servers
+  roles:
+    - role: "helloworld"
+      vars:
+        message: "Hello world!"
+```

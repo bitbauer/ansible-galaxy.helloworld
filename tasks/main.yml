@@ -1,4 +1,4 @@
 ---
 # tasks file for ansible-galaxy.helloworld
 - debug:
-    msg: "Hello world!"
+    msg: "{{ message }}"

@@ -4,7 +4,7 @@
 default: &default
   role: "ansible-galaxy.helloworld"
   project: "sandbox"
-  domain: ".db.local"
+  domain: ".localdomain"
   ? hostname
 
 localdev:

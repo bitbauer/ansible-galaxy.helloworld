@@ -2,4 +2,6 @@
 - hosts: sandbox--localdev
   remote_user: root
   roles:
-    - ansible-galaxy.helloworld
+    - role: ansible-galaxy.helloworld
+      vars:
+        message: "Hello world!"

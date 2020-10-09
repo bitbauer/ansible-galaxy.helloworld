@@ -11,7 +11,7 @@ load './tests/vagranthelper/require_plugins.rb'
 
 Vagrant.configure(2) do |config|
   # Check for required vagrant plugins
-  require_plugins config, %w(vagrant-hostmanager vagrant-vbguest vagrant-cachier)
+  require_plugins config, %w(vagrant-hostmanager vagrant-vbguest vagrant-cachier vagrant-serverspec)
 
   # Load basic configuration of this VM
   configuration = load_configuration('localdev', './tests/configuration.yml')
@@ -47,5 +47,10 @@ Vagrant.configure(2) do |config|
           inventory_path: "inventory",
           playbook: "test.yml"
 
+    # Initialize and trigger provision testing using ServerSpec
+    guest.vm.provision "test",
+          type: :serverspec,
+          preserve_order: true,
+          pattern: "tests/serverspec/*_spec.rb"
   end
 end
